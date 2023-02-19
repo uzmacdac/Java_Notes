@@ -1,0 +1,45 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Roman {
+
+	
+	int convert(String inp) {
+		int value=0;
+		//Key is the roman numeral, value is the Integral value.
+		Map<Character, Integer> data = new HashMap<>();
+		data.put('I', 1);
+		data.put('V', 5);
+		data.put('X', 10);
+		data.put('L', 50);
+		data.put('C', 100);
+		data.put('D', 500);
+		data.put('M', 1000);
+		
+		for(int i=0; i<inp.length(); i++) {
+			char ch = inp.charAt(i);
+			
+			if(i>0) {
+				char ch2 = inp.charAt(i-1);
+				if(data.get(ch) > data.get(ch2))
+					value = value + (data.get(ch) - 2*data.get(ch2));
+				else 
+					value = value + data.get(ch);
+			}
+			else {
+				value = value + data.get(ch);
+			}
+		}
+		return value;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the Roman number");
+		String str = sc.next();
+		Roman obj = new Roman();
+		int integer_value = obj.convert(str.toUpperCase());
+		System.out.println("The Interger value is : " + integer_value);
+	}
+}
